@@ -18,4 +18,4 @@
 //= require bootstrap-sprockets
 //= require sb-admin
 //= require tether
-//= require bootstrap_sb_admin_base_v2
+ 

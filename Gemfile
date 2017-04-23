@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap_sb_admin_base_v2', '~> 0.1.0'
+ 
 #font-awesome 
 gem "font-awesome-rails"
 # devise
