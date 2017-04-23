@@ -1,0 +1,6 @@
+<%= form_for note, url: {action: "comment"}, html: {class: "nifty_form"} do |f| %>
+   
+  <%= f.text_area :comment, size: "60x12" %>
+  <input type="hidden" name="id" value="<%=@goal.id %>" />
+  <%= f.submit "Add Note" %>
+<% end %>

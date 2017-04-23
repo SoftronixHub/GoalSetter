@@ -1,0 +1,76 @@
+<%= form_for(goal) do |f| %>
+  <% if goal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(goal.errors.count, "error") %> prohibited this goal from being saved:</h2>
+
+      <ul>
+      <% goal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="col-md-6">
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :deadline %>
+    <%= f.date_select :deadline %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  </div>
+  <div class="col-md-6">
+      <p> Milestones : <input type="button" id="submit" value="Add More"/> </p>
+     
+         
+          <div class="input_fields_wrap">
+   
+    <div>
+    <label> 1. </label>  
+    <input type="text" name="milestone_title[0]">
+ 
+    </div>
+</div>
+        
+                 
+ 
+         
+          
+  </div>
+
+  
+<% end %>
+
+<script>
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    
+   
+    var x = 1; //initlal text box count
+    $("#submit").click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x <max_fields){ //max input box allowed
+              var y=x+1;
+            $(wrapper).append('<div><label>'+y+'. </label><input type="text" name="milestone_title['+x+']"/> <a href="#" class="remove_field">Remove</a></div>'); //add input box
+               x++; //text box increment
+        }
+    });
+   
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+ 
+</script>

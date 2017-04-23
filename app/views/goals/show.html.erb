@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+<div class="col-md-6"
+<p>
+  <strong>Title:</strong>
+  <%= @goal.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @goal.description %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @goal.deadline %>
+</p>
+</div>
+<div class="col-md-6"
+ <div class="table-responsive">
+ <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+  	<thead>
+  	<tr>
+  	<th>S.N
+  	</th>
+  	<th> Milestone </th>
+  	<th>Status
+  	</th>
+  	<tr>
+  	</thead>
+  	<% @goal.milestones.each_with_index do |m,i| %>
+  		
+  	
+  	<tr><td><%= i+1 %> </td>
+  	<td><%= m.title %>  </td>
+  	<td>
+    <%if(m.completed) %>
+    <span> Completed </span>
+  	<%else %> 
+<span> Incomplete</span>
+  	<%end%> 
+  	 </td>
+  	</tr>
+  	<%  end %>
+  	<tbody>
+  		
+  	</tbody>
+  </table>
+</div>
+</div>
+<div class="row">
+<h3>List of Comments </h3>
+<% @goal.notes.each_with_index do |n,i| %>
+<div class="col-md-10"> 
+<%= i+1 %>. <%= n.comment %> 
+</div>
+<%  end %>
+<div class="col-md-10"> 
+<%= render 'comment', note: @note, goal: @goal %>
+
+</div>
+</div>
+
+<p>
+<%= link_to 'Edit', edit_goal_path(@goal) %> |
+<%= link_to 'Back', goals_path %> </p>
