@@ -25,28 +25,27 @@
   	<th>S.N
   	</th>
   	<th> Milestone </th>
-  	<th>Status
+  	<th>Completed
   	</th>
     <th>
     </th>
   	<tr>
   	</thead>
   	<% @goal.milestones.each_with_index do |m,i| %>
-  		
-  	
+  	 <%= form_for m, url: {controller:"goals",action: "milestone"},html:{method:"patch"}  do |f| %>
   	<tr><td><%= i+1 %> </td>
-  	<td><%= m.title %>  </td>
+  	<td><%= m.title %>   </td>
   	<td>
-    <%if(m.completed) %>
-    <span> Completed </span>
-  	<%else %> 
-<span> Incomplete</span>
-  	<%end%> 
+   <%= f.check_box(:completed) %>  
+   <!-- <input  name="completed" type="checkbox" value="<%= m.completed %>" /> -->
   	 </td>
      <td>
-     <input type="checkbox" />
+      <input type="hidden" name="id" value="<%= @goal.id %>" />
+     <input type="hidden" name="milestoneid" value="<%= m.id %>" />
+  <%= f.submit "Update" %>
      </td>
   	</tr>
+    <%  end %>
   	<%  end %>
   	<tbody>
   		

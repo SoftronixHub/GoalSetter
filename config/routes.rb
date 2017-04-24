@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 root 'home#index'
 get '/dashboard' => 'home#dashboard'
 post '/comment' => 'goals#comment'
+patch '/milestone' => 'goals#milestone'
 end

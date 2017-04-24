@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :comment, :edit, :update, :destroy]
+  before_action :set_goal, only: [:show, :comment, :milestone, :edit, :update, :destroy]
 
   # GET /goals
   # GET /goals.json
@@ -31,13 +31,13 @@ class GoalsController < ApplicationController
   def show
 
     @note=Note.new
+    @milestone=Milestone.new
 
   end
 
   def comment
   
-    @note = @goal.notes.new(note_params)
-     
+    @note = @goal.notes.new(note_params)     
     respond_to do |format|
       if @note.save
 
@@ -50,7 +50,23 @@ class GoalsController < ApplicationController
     end
   end
 
-  # GET /goals/new
+  def milestone
+ 
+  @milestone = Milestone.find(params[:milestoneid])
+     @milestone.completed=params[:milestone][:completed]
+     
+    respond_to do |format|
+      if @milestone.save
+        format.html { redirect_to @goal, notice: "Milestone's status was successfully updated." }
+        format.json { render :show, status: :created, location: @goal }
+      else
+        format.html { render :new }
+        format.json { render json: @note.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  #GET /goals/new
   def new
     @goal = Goal.new
      
@@ -119,9 +135,7 @@ class GoalsController < ApplicationController
       params.require(:goal).permit(:title, :description, :deadline, milestones_attributes: [:title])
     end
 
-    def milestone_params
-      params.require(:title).permit!
-    end
+    
 
     def note_params
       params.require(:note).permit(:comment, :attachment)
