@@ -35,10 +35,11 @@ class GoalsController < ApplicationController
   end
 
   def comment
-    binding.pry
- @note = @goal.notes.new(note_params)
- respond_to do |format|
-  if @note.save
+  
+    @note = @goal.notes.new(note_params)
+     
+    respond_to do |format|
+      if @note.save
 
         format.html { redirect_to @goal, notice: 'Note was successfully added.' }
         format.json { render :show, status: :created, location: @goal }
@@ -62,6 +63,7 @@ class GoalsController < ApplicationController
   # POST /goals
   # POST /goals.json
   def create
+    @goal = Goal.new(goal_params)
        @goal.user_id=current_user.id
     
    binding.pry
@@ -114,7 +116,7 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit!
+      params.require(:goal).permit(:title, :description, :deadline, milestones_attributes: [:title])
     end
 
     def milestone_params
@@ -122,6 +124,6 @@ class GoalsController < ApplicationController
     end
 
     def note_params
-      params.require(:note).permit!
+      params.require(:note).permit(:comment, :attachment)
     end
 end

@@ -5,5 +5,7 @@ class HomeController < ApplicationController
 
 	def dashboard
 		@goals=current_user.goals
+		@goalcount=@goals.count
+		 
 	end
 end

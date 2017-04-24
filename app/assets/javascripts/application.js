@@ -16,6 +16,6 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
-//= require sb-admin
-//= require tether
  
+
+

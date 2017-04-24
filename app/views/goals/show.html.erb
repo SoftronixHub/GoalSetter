@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="row">
-<div class="col-md-6"
+<div class="col-md-6">
 <p>
   <strong>Title:</strong>
   <%= @goal.title %>
@@ -17,7 +17,7 @@
   <%= @goal.deadline %>
 </p>
 </div>
-<div class="col-md-6"
+<div class="col-md-6">
  <div class="table-responsive">
  <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
   	<thead>
@@ -27,6 +27,8 @@
   	<th> Milestone </th>
   	<th>Status
   	</th>
+    <th>
+    </th>
   	<tr>
   	</thead>
   	<% @goal.milestones.each_with_index do |m,i| %>
@@ -41,6 +43,9 @@
 <span> Incomplete</span>
   	<%end%> 
   	 </td>
+     <td>
+     <input type="checkbox" />
+     </td>
   	</tr>
   	<%  end %>
   	<tbody>
@@ -50,15 +55,22 @@
 </div>
 </div>
 <div class="row">
-<h3>List of Comments </h3>
+<div class="col-md-6">
+<h3>List of Notes </h3>
+<ul class="list-group">
 <% @goal.notes.each_with_index do |n,i| %>
-<div class="col-md-10"> 
-<%= i+1 %>. <%= n.comment %> 
-</div>
-<%  end %>
-<div class="col-md-10"> 
-<%= render 'comment', note: @note, goal: @goal %>
+ 
+  <li class="list-group-item"><%= i+1 %>. <%= n.comment %>
+  <a href="<%= n.attachment.url  if n.attachment? %>" target="_blank"><%= n.attachment_identifier  if n.attachment? %> </a>
+<!--   <%= image_tag n.attachment.url if n.attachment? %> -->
+   </li>
+ <%  end %>
 
+</ul>
+</div>
+<div class="col-md-6">
+<%= render 'comment', note: @note, goal: @goal %>
+</div>
 </div>
 </div>
 
