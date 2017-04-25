@@ -4,5 +4,5 @@ class Goal < ApplicationRecord
 	has_many :milestones, class_name:'Milestone', foreign_key: 'goal_id'
 	has_many :notes, class_name: 'Note', foreign_key: 'goal_id'
 
-	accepts_nested_attributes_for :milestones
+	accepts_nested_attributes_for :milestones, allow_destroy: true, reject_if: ->(attrs) { attrs['title'].blank? }
 end

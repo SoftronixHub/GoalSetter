@@ -69,6 +69,7 @@ class GoalsController < ApplicationController
   #GET /goals/new
   def new
     @goal = Goal.new
+    3.times { @goal.milestones.build }
      
   end
 
@@ -82,15 +83,10 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
        @goal.user_id=current_user.id
     
-   binding.pry
-  @milestones=params[:milestone_title]
-
+    binding.pry
     respond_to do |format|
       if @goal.save
-        @milestones.each do |m|
-         @goal.milestones.create(:title=>m, :completed=>false)
-        end
-
+       
         format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
         format.json { render :show, status: :created, location: @goal }
       else
@@ -104,7 +100,7 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1.json
   def update
     respond_to do |format|
-      if @goal.update(goal_params)
+      if @goal.update_attributes(goal_params)
         format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
         format.json { render :show, status: :ok, location: @goal }
       else
@@ -132,7 +128,7 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:title, :description, :deadline, milestones_attributes: [:title])
+      params.require(:goal).permit(:title, :description, :deadline, milestones_attributes: [:id, :title, :_destroy])
     end
 
     

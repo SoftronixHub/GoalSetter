@@ -31,14 +31,18 @@
   </div>
   </div>
   <div class="col-md-6">
-      <p> Milestones : <input type="button" id="submit" value="Add More"/> </p>
-     
-         
-          <div class="input_fields_wrap">
-   
-         <div>
-    <label> 1. </label>  
-    <input type="text" name="milestone_title[0]">
+     <p><strong>Milestones:</strong></p>
+    <% i=1 %>
+    <%= f.fields_for :milestones do |m| %>
+      <div>
+         <label> <%= i %>. </label>
+        <%= m.label :title %>
+        <%= m.text_field :title %>
+         <%= m.check_box :_destroy %>
+ <% i=i+1 %>
+        
+      </div>
+    <% end %>
  
     </div>
 </div>
@@ -54,41 +58,6 @@
 
 <script>
 $(document).ready(function() {
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-    
- 
-    var js_array = <%= @goal.milestones.to_json.html_safe %>;
-
-    
-    var x = 1; //initlal text box count
-    if(js_array.length>1)
-    {
-      x=0;
-    $(wrapper).empty();
-    }
-    $.each( js_array, function( key, value ) {
-      var y=x+1;
-      var avoid='/';
-      var title=value.title;
-      title=title.substring(0,title.length);
-      alert(title.length);
-            $(wrapper).append('<div><label>'+y+'. </label><input type="text" name="milestone_oldtitle['+x+']" value='+title+'/> <a href="#" class="remove_field">Remove</a></div>'); //add input box
-               x++; //text box increment
-});
-
-    $("#submit").click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x <max_fields){ //max input box allowed
-              var y=x+1;
-            $(wrapper).append('<div><label>'+y+'. </label><input type="text" name="milestone_title['+x+']"/> <a href="#" class="remove_field">Remove</a></div>'); //add input box
-               x++; //text box increment
-        }
-    });
-   
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
-});
+     
  
 </script>
