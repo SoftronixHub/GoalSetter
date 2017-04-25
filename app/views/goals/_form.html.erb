@@ -36,7 +36,7 @@
          
           <div class="input_fields_wrap">
    
-    <div>
+         <div>
     <label> 1. </label>  
     <input type="text" name="milestone_title[0]">
  
@@ -57,8 +57,26 @@ $(document).ready(function() {
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     
-   
+ 
+    var js_array = <%= @goal.milestones.to_json.html_safe %>;
+
+    
     var x = 1; //initlal text box count
+    if(js_array.length>1)
+    {
+      x=0;
+    $(wrapper).empty();
+    }
+    $.each( js_array, function( key, value ) {
+      var y=x+1;
+      var avoid='/';
+      var title=value.title;
+      title=title.substring(0,title.length);
+      alert(title.length);
+            $(wrapper).append('<div><label>'+y+'. </label><input type="text" name="milestone_oldtitle['+x+']" value='+title+'/> <a href="#" class="remove_field">Remove</a></div>'); //add input box
+               x++; //text box increment
+});
+
     $("#submit").click(function(e){ //on add input button click
         e.preventDefault();
         if(x <max_fields){ //max input box allowed
