@@ -32,18 +32,15 @@
   </div>
   <div class="col-md-6">
      <p><strong>Milestones:</strong></p>
-    <% i=1 %>
+    
+    
     <%= f.fields_for :milestones do |m| %>
-      <div>
-         <label> <%= i %>. </label>
-        <%= m.label :title %>
-        <%= m.text_field :title %>
-         <%= m.check_box :_destroy %>
- <% i=i+1 %>
-        
-      </div>
+     <%= render 'milestone_fields', f: m %>     
     <% end %>
- 
+     <div class="links">
+        <%= link_to_add_association 'add milestone', f, :milestones %>
+      </div>
+  
     </div>
 </div>
         
@@ -58,6 +55,6 @@
 
 <script>
 $(document).ready(function() {
-     
+    
  
 </script>

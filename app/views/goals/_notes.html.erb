@@ -1,0 +1,12 @@
+<h3>List of Notes </h3>
+<ul class="list-group">
+<% notes.each_with_index do |n,i| %>
+ 
+  <li class="list-group-item"><%= i+1 %>. <%= n.comment %>
+  <br/>
+  Attachment: <a href="<%= n.attachment.url  if n.attachment? %>" target="_blank"><%= n.attachment_identifier  if n.attachment? %> </a>
+<!--   <%= image_tag n.attachment.url if n.attachment? %> -->
+   </li>
+ <%  end %>
+
+</ul>

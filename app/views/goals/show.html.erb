@@ -17,56 +17,12 @@
   <%= @goal.deadline %>
 </p>
 </div>
-<div class="col-md-6">
- <div class="table-responsive">
- <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
-  	<thead>
-  	<tr>
-  	<th>S.N
-  	</th>
-  	<th> Milestone </th>
-  	<th>Completed
-  	</th>
-    <th>
-    </th>
-  	<tr>
-  	</thead>
-  	<% @goal.milestones.each_with_index do |m,i| %>
-  	 <%= form_for m, url: {controller:"goals",action: "milestone"},html:{method:"patch"}  do |f| %>
-  	<tr><td><%= i+1 %> </td>
-  	<td><%= m.title %>   </td>
-  	<td>
-   <%= f.check_box(:completed) %>  
-   <!-- <input  name="completed" type="checkbox" value="<%= m.completed %>" /> -->
-  	 </td>
-     <td>
-      <input type="hidden" name="id" value="<%= @goal.id %>" />
-     <input type="hidden" name="milestoneid" value="<%= m.id %>" />
-  <%= f.submit "Update" %>
-     </td>
-  	</tr>
-    <%  end %>
-  	<%  end %>
-  	<tbody>
-  		
-  	</tbody>
-  </table>
-</div>
+<div class="col-md-6" id="milestoneListing">
+  <%= render partial: 'goals/milestones', locals: {milestones: @goal.milestones} %>
 </div>
 <div class="row">
-<div class="col-md-6">
-<h3>List of Notes </h3>
-<ul class="list-group">
-<% @goal.notes.each_with_index do |n,i| %>
- 
-  <li class="list-group-item"><%= i+1 %>. <%= n.comment %>
-  <br/>
-  Attachment: <a href="<%= n.attachment.url  if n.attachment? %>" target="_blank"><%= n.attachment_identifier  if n.attachment? %> </a>
-<!--   <%= image_tag n.attachment.url if n.attachment? %> -->
-   </li>
- <%  end %>
-
-</ul>
+<div class="col-md-6" id="noteListing">
+  <%= render partial: 'goals/notes', locals: {notes: @goal.notes.order(created_at: :desc)} %>
 </div>
 <div class="col-md-6">
 <%= render 'comment', note: @note, goal: @goal %>

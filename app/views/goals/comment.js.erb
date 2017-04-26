@@ -1,0 +1,2 @@
+$('#noteListing').html("<%= escape_javascript render partial: 'goals/notes', locals: {notes: @goal.notes.order(created_at: :desc)} %>");
+$('#note_comment').val('')

@@ -29,39 +29,37 @@ class GoalsController < ApplicationController
   # GET /goals/1
   # GET /goals/1.json
   def show
-
     @note=Note.new
     @milestone=Milestone.new
 
   end
 
   def comment
-  
+    
     @note = @goal.notes.new(note_params)     
     respond_to do |format|
       if @note.save
 
         format.html { redirect_to @goal, notice: 'Note was successfully added.' }
-        format.json { render :show, status: :created, location: @goal }
+        format.js { render :comment }
       else
         format.html { render :new }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
+        format.js { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def milestone
- 
-  @milestone = Milestone.find(params[:milestoneid])
-     @milestone.completed=params[:milestone][:completed]
+    @milestone = Milestone.find(params[:milestoneid])
+    @milestone.completed=params[:milestone][:completed]
      
     respond_to do |format|
       if @milestone.save
         format.html { redirect_to @goal, notice: "Milestone's status was successfully updated." }
-        format.json { render :show, status: :created, location: @goal }
+        format.js { render :milestone }
       else
         format.html { render :new }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
+        format.js { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,7 +67,7 @@ class GoalsController < ApplicationController
   #GET /goals/new
   def new
     @goal = Goal.new
-    3.times { @goal.milestones.build }
+     @goal.milestones.build  
      
   end
 
@@ -81,12 +79,11 @@ class GoalsController < ApplicationController
   # POST /goals.json
   def create
     @goal = Goal.new(goal_params)
-       @goal.user_id=current_user.id
+    @goal.user_id=current_user.id
     
     binding.pry
     respond_to do |format|
       if @goal.save
-       
         format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
         format.json { render :show, status: :created, location: @goal }
       else

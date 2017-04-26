@@ -1,0 +1,34 @@
+<div class="table-responsive">
+ <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+  	<thead>
+  	<tr>
+  	<th>S.N
+  	</th>
+  	<th> Milestone </th>
+  	<th>Completed
+  	</th>
+    <th>
+    </th>
+  	<tr>
+  	</thead>
+  	<% milestones.each_with_index do |m,i| %>
+  	 <%= form_for m, url: {controller:"goals",action: "milestone"},html:{method:"patch"}, remote: true  do |f| %>
+  	<tr><td><%= i+1 %> </td>
+  	<td><%= m.title %>   </td>
+  	<td>
+   <%= f.check_box(:completed) %>  
+   <!-- <input  name="completed" type="checkbox" value="<%= m.completed %>" /> -->
+  	 </td>
+     <td>
+      <input type="hidden" name="id" value="<%= @goal.id %>" />
+     <input type="hidden" name="milestoneid" value="<%= m.id %>" />
+  <%= f.submit "Update" %>
+     </td>
+  	</tr>
+    <%  end %>
+  	<%  end %>
+  	<tbody>
+  		
+  	</tbody>
+  </table>
+</div>
