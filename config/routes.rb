@@ -8,4 +8,5 @@ root 'home#index'
 get '/dashboard' => 'home#dashboard'
 post '/comment' => 'goals#comment'
 patch '/milestone' => 'goals#milestone'
+delete '/note' =>'goals#note'
 end

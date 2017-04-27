@@ -1,2 +1,3 @@
-$('#noteListing').html("<%= escape_javascript render partial: 'goals/notes', locals: {notes: @goal.notes.order(created_at: :desc)} %>");
-$('#note_comment').val('')
+$('#noteListing').html("<%= escape_javascript render partial: 'goals/notes', locals: {goal: @goal, notes: @goal.notes.order(created_at: :desc)} %>");
+$('#note_comment').val('');
+$('#note_attachment').val('');

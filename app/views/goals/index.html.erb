@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Goals</h1>
+<h1>List of my Goals</h1>
  <div class="table-responsive">
  <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
   <thead>
@@ -22,9 +22,8 @@
         <td><%= goal.deadline %></td>
         <td><%= calculate_percentage(goal) %> %</td>
         <td><%= goal.milestones.count %> </td>
-        <td><%= link_to 'Show', goal %></td>
-        <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
-        <td><%= link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', goal , class:"btn btn-info" %></td>
+      
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +31,4 @@
 </div>
 <br>
 
-<%= link_to 'New Goal', new_goal_path %>
+<%= link_to 'New Goal', new_goal_path, class: "btn btn-info" %>

@@ -5,6 +5,14 @@
   <li class="list-group-item"><%= i+1 %>. <%= n.comment %>
   <br/>
   Attachment: <a href="<%= n.attachment.url  if n.attachment? %>" target="_blank"><%= n.attachment_identifier  if n.attachment? %> </a>
+  <br/>
+  <%= form_for n, url: {controller:"goals",action: "note"},html:{method:"delete"}, remote: true  do |f| %>
+ 
+  <input type="hidden" name="id" value="<%= goal.id %>" />
+     <input type="hidden" name="noteid" value="<%= n.id %>" />
+  <%= f.submit "Delete" %>
+   <%  end %>
+  
 <!--   <%= image_tag n.attachment.url if n.attachment? %> -->
    </li>
  <%  end %>

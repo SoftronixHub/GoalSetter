@@ -1,5 +1,6 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :comment, :milestone, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_goal, only: [:show, :comment, :note, :milestone, :edit, :update, :destroy]
 
   # GET /goals
   # GET /goals.json
@@ -49,6 +50,21 @@ class GoalsController < ApplicationController
     end
   end
 
+  def note
+    
+    @note = Note.find(params[:noteid])    
+    respond_to do |format|
+      if @note.destroy
+
+        format.html { redirect_to @goal, notice: 'Note was successfully deleted.' }
+        format.js { render :comment }
+      else
+        format.html { render :new }
+        format.js { render json: @note.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def milestone
     @milestone = Milestone.find(params[:milestoneid])
     @milestone.completed=params[:milestone][:completed]
@@ -80,8 +96,7 @@ class GoalsController < ApplicationController
   def create
     @goal = Goal.new(goal_params)
     @goal.user_id=current_user.id
-    
-    binding.pry
+  
     respond_to do |format|
       if @goal.save
         format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
