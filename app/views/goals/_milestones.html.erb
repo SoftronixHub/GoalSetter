@@ -12,6 +12,7 @@
     </th>
   	<tr>
   	</thead>
+      <tbody>
   	<% milestones.each_with_index do |m,i| %>
   	 <%= form_for m, url: {controller:"goals",action: "milestone"},html:{method:"patch"}, remote: true  do |f| %>
   	<tr><td><%= i+1 %> </td>
@@ -28,7 +29,10 @@
   	</tr>
     <%  end %>
   	<%  end %>
-  	<tbody>
+     
+   <%if milestones.count==0 %>
+    <em> No milestones created Yet! <em>
+    <% end %>
   		
   	</tbody>
   </table>

@@ -26,6 +26,9 @@
       
       </tr>
     <% end %>
+    <%if @goals.count==0 %>
+    <em> No Goals Created Yet! <em>
+    <% end %>
   </tbody>
 </table>
 </div>

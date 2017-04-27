@@ -13,8 +13,10 @@
   <%= f.submit "Delete" %>
    <%  end %>
   
-<!--   <%= image_tag n.attachment.url if n.attachment? %> -->
    </li>
  <%  end %>
+  <%if notes.count==0 %>
+    <em> No notes added Yet! <em>
+    <% end %>
 
 </ul>

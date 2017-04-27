@@ -7,10 +7,16 @@ module ApplicationHelper
     return number_with_precision(percentage_completed, precision: 2)
 	end
 
-	def getlatestgoals(goals)
+	def getlatestgoals()
      Goal.all.order(created_at: :desc).take(3)
 	end
 
+    def getlatestmilestones()
+     Milestone.all.order(created_at: :desc).take(5)
+	end
 	  
+	def getlatestnotes()
+     Note.all.order(created_at: :desc).take(2)
+	end
 
 end

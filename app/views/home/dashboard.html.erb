@@ -14,14 +14,14 @@
                        Total Goals <span class="badge"><%= @goalcount %></span> <br/>
                         
                         </div>
-                        <div class="panel-footer"><a href="/goals">View All Goals</a></div>
+                       
                    </div>
                 </div>
                 <div class="col-md-4 ">
                    <div class="panel panel-primary">
                         <div class="panel-heading"> Milestones Details</div>
                         <div class="panel-body">
-                       Total Milestones <span class="badge">  </span> 
+                     Total Milestones <span class="badge"><%= @milestonecount %>  </span> 
                         </div>
                         
                    </div>
@@ -30,7 +30,7 @@
                    <div class="panel panel-primary">
                         <div class="panel-heading">  Notes Details</div>
                         <div class="panel-body">
-                       Total Notes <span class="badge">5 </span> 
+                       Total Notes <span class="badge"><%= @notecount %>  </span> 
                         </div>
                         
                    </div>
@@ -45,6 +45,9 @@
                         <div class="panel-heading">Latest Goals</div>
                         <div class="panel-body">
                        <ul>
+                       <% getlatestgoals.each do |goal| %>
+                         <li> <td><%= link_to goal.title, goal %></td> </li>
+                       <% end %>
                        
                        </ul>
                         
@@ -56,7 +59,12 @@
                    <div class="panel panel-primary">
                         <div class="panel-heading"> Latest Milestones</div>
                         <div class="panel-body">
-                       Total Milestones <span class="badge">  </span> 
+                       <ul>
+                       <% getlatestmilestones.each do |m| %>
+                         <li> <td><%= link_to m.title, m.goal %></td> </li>
+                       <% end %>
+                       
+                       </ul>
                         </div>
                         
                    </div>
@@ -65,7 +73,12 @@
                    <div class="panel panel-primary">
                         <div class="panel-heading"> Latest  Notes</div>
                         <div class="panel-body">
-                       Total Notes <span class="badge">5 </span> 
+                       <ul>
+                       <% getlatestnotes.each do |n| %>
+                         <li> <td><%= link_to n.comment, n.goal %></td> </li>
+                       <% end %>
+                       
+                       </ul>
                         </div>
                         
                    </div>
